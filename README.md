@@ -1,63 +1,150 @@
-# Streamify — Enhancement Notes
+# 🎬 Streamify — Netflix-Inspired Streaming Platform
 
-This pass fixed real bugs and brought the login/signup/dashboard pages in
-line with the polished design system that `style.css` already had (but the
-original HTML never used).
+> 🍿 A cinematic, fully responsive streaming web app built from scratch with pure HTML, CSS & JavaScript — no frameworks, no libraries, just clean code!
 
-## Bugs fixed
+![Streamify Banner](img/Bckimgg.jpg)
 
-- **Broken sign-up link**: `login.html` linked to `signup.html` (lowercase),
-  but the file was `signUp.html`. Now both pages link to the right place.
-- **Broken FAQ accordion**: `script.js` looked for `.faq-question` /
-  `.active`, but the markup in `index.html` uses `.faq-q` / `.faq-a` /
-  `.open`. The FAQ never opened. Rewrote `script.js` to match the real
-  class names.
-- **Script crash on the homepage**: the old `script.js` unconditionally
-  called `searchInput.addEventListener(...)`, but `index.html` has no
-  search box — `searchInput` was `null`, so the whole script threw and
-  stopped running for every visitor. All listeners are now guarded.
-- **Every dashboard row showed the same nine titles.** "Your Next Watch,"
-  "Anime," "Made in India," etc. were all identical. Added a small shared
-  catalog (`catalog.js`) and curated, genuinely different filters per row.
-- **Dead nav links**: the dashboard linked to `home.html`, `series.html`,
-  `movies.html`, none of which existed. Replaced with working in-page
-  anchors to sections that are actually there.
-- **Logout didn't log out**: it just navigated to `index.html` without
-  clearing the session, so `dashboard.html` was still reachable
-  afterwards. Logout now clears the stored session.
-- **No route protection**: anyone could open `dashboard.html` or a profile
-  page directly without signing in. Added `Auth.requireAuth()`, which
-  redirects to `login.html` if no one is signed in.
-- **Hardcoded user info**: the dashboard always showed "Aditi Yadav," even
-  for a different logged-in account. It now reads the real signed-in
-  user's name and email.
-- **Missing profile page**: the dashboard linked to `profile.html`, which
-  didn't exist. Added one.
+---
 
-## Structural changes
+## 🌟 Live Demo
 
-- **`auth.js`** — one shared module for sign up, log in, log out, and
-  `requireAuth()`. Used by every page that needs it, so the logic lives in
-  one place instead of being duplicated (and drifting) across files.
-- **`catalog.js`** — a single list of titles/images/tags, plus a list of
-  curated row definitions. `dashboard.js` renders rows from this list, so
-  the rows are simple data to edit rather than repeated HTML blocks.
-- **`login.html` / `signUp.html` / `profile.html`** — rebuilt using the
-  `.auth-page / .auth-box / .auth-field / .btn-auth` classes that
-  `style.css` already defined but the old pages never used. Inline error
-  messages replace `alert()` popups.
-- **`dashboard.html` / `dashboard.js`** — rebuilt using the
-  `.dashboard-nav / .dash-banner / .dash-section / .dash-card` classes,
-  with a working live search (filters cards and hides empty rows) and a
-  working account dropdown.
+🔗 [View Live Site](https://aditiyadavz.github.io/streamify/)
 
-## Known limitations (by design, for a front-end-only demo)
+---
 
-- There's no backend — accounts and sessions live in the browser's
-  `localStorage`. Passwords are stored in plain text. This is fine for a
-  learning project but isn't how real authentication should work; a real
-  version would hash passwords server-side and use proper sessions/tokens.
-- "Play" and movie-card clicks show a placeholder alert — there's no
-  actual video playback.
-- Search only matches on title text within the data already in
-  `catalog.js`; it doesn't hit any external API.
+## ✨ Features
+
+- 🎥 **Cinematic Landing Page** — Full-screen hero with animated background & smooth scroll
+- 🔥 **Trending Now Section** — Horizontal scrollable content rows with hover effects
+- 🔐 **User Authentication** — Login & Signup with localStorage (no backend needed!)
+- 🎭 **Personalized Dashboard** — Netflix-style content rows after login
+- 📱 **Fully Responsive** — Works beautifully on mobile, tablet & desktop
+- ❓ **FAQ Accordion** — Smooth animated expand/collapse
+- 🌐 **Language Selector** — English & Hindi support
+- 🎨 **Stunning UI** — Dark cinematic theme with red accent & glassmorphism effects
+
+---
+
+## 📸 Screenshots
+
+| Landing Page                | Dashboard                    |
+| --------------------------- | ---------------------------- |
+| ![Landing](img/Bckimgg.jpg) | ![Dashboard](img/banner.jpg) |
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology                                                                                               | Usage                      |
+| -------------------------------------------------------------------------------------------------------- | -------------------------- |
+| ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)                | Structure & Layout         |
+| ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)                   | Styling & Animations       |
+| ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black) | Interactivity & Auth Logic |
+
+---
+
+## 📁 Project Structure
+
+```
+streamify/
+│
+├── 📄 index.html          # Landing page
+├── 📄 login.html          # Login page
+├── 📄 signUp.html         # Sign up page
+├── 📄 dashboard.html      # Main dashboard (after login)
+├── 🎨 style.css           # All styles & animations
+├── ⚡ script.js           # FAQ accordion & navbar logic
+│
+└── 📁 img/                # All images
+    ├── 🖼️ Bckimgg.jpg     # Hero background
+    ├── 🖼️ banner.jpg      # Dashboard banner
+    ├── 🖼️ squid.jpg       # Squid Game
+    ├── 🖼️ friends.jpg     # Friends
+    ├── 🖼️ demon.jpg       # Demon Slayer
+    └── 📁 YourNextWatch/  # Dashboard content images
+```
+
+---
+
+## 🚀 Getting Started
+
+### Option 1 — Open Locally
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/aditiyadavz/streamify.git
+
+# 2. Open in browser
+cd streamify
+open index.html
+```
+
+### Option 2 — View Live
+
+Just visit 👉 [aditiyadavz.github.io/streamify](https://aditiyadavz.github.io/streamify/)
+
+---
+
+## 🔐 How Auth Works
+
+> No backend needed! Auth is handled entirely with `localStorage` 🧠
+
+```
+Sign Up  →  saves { name, email, password } to localStorage
+Log In   →  checks credentials against localStorage
+Dashboard →  reads currentUser from localStorage
+Log Out  →  clears currentUser, redirects to index
+```
+
+---
+
+## 📱 Pages Overview
+
+| Page             | Description                                         |
+| ---------------- | --------------------------------------------------- |
+| `index.html`     | 🏠 Landing page with hero, trending, features & FAQ |
+| `login.html`     | 🔐 Login form with localStorage validation          |
+| `signUp.html`    | 📝 Sign up form with password confirmation          |
+| `dashboard.html` | 🎬 Netflix-style content dashboard post-login       |
+
+---
+
+## 🎨 Design Highlights
+
+- 🖤 **Dark cinematic theme** with `#0a0a0a` background
+- 🔴 **Signature red accent** `#e50914` (Netflix-inspired)
+- ✨ **Glassmorphism** on auth cards with `backdrop-filter: blur`
+- 🎞️ **Smooth animations** — hero zoom, card hover scale, FAQ accordion
+- 📐 **CSS Custom Properties** for consistent design tokens
+- 🖱️ **Card hover effects** — scale up + reveal title & tag on hover
+
+---
+
+## 🌐 Deployment
+
+Deployed on **GitHub Pages** 🚀
+
+To deploy your own copy:
+
+1. Fork this repo
+2. Go to **Settings → Pages**
+3. Set branch to `main` → Save
+4. Live at `https://yourusername.github.io/streamify/`
+
+---
+
+## 🙋‍♀️ Author
+
+**Aditi Yadav**
+
+[![GitHub](https://img.shields.io/badge/GitHub-aditiyadavz-181717?style=flat&logo=github)](https://github.com/aditiyadavz)
+
+---
+
+## ⭐ Show Some Love
+
+If you liked this project, please give it a **⭐ star** on GitHub — it means a lot! 🙏
+
+---
+
+> 🎬 _"Streamify — Because every story deserves a screen."_ 🍿
