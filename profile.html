@@ -6,7 +6,7 @@
   <title>Your Profile — Streamify</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body class="auth-page">
@@ -20,7 +20,7 @@
     </div>
   </nav>
 
-  <div class="auth-center">
+  <div class="auth-center auth-center-stack">
     <div class="auth-box">
       <h2>Your profile</h2>
 
@@ -40,20 +40,86 @@
       <button class="btn-auth" id="logoutBtn">Log out</button>
       <p class="auth-switch"><a href="dashboard.html">← Back to dashboard</a></p>
     </div>
+
+    <!-- "Wrapped"-style recap card: small reward moment, not buried info -->
+    <div class="wrapped-card" id="wrappedCard">
+      <p class="wrapped-eyebrow">Your Streamify recap</p>
+      <h3 class="wrapped-title">What you're into right now</h3>
+      <div class="wrapped-stats">
+        <div>
+          <div class="wrapped-stat-num" id="statListCount">0</div>
+          <p class="wrapped-stat-label">titles in My List</p>
+        </div>
+        <div>
+          <div class="wrapped-stat-num" id="statGenreCount">0</div>
+          <p class="wrapped-stat-label">genres explored</p>
+        </div>
+      </div>
+      <div class="wrapped-genre-row">
+        <p class="wrapped-genre-label">Top pick right now</p>
+        <span class="wrapped-genre-pill" id="topGenrePill">🎬 Add titles to see your vibe</span>
+      </div>
+    </div>
   </div>
 
+  <script src="motion.js"></script>
   <script src="auth.js"></script>
+  <script src="catalog.js"></script>
   <script>
     const user = Auth.requireAuth();
+
     if (user) {
       document.getElementById("profileName").value = user.name;
       document.getElementById("profileEmail").value = user.email;
+      renderWrappedStats();
     }
 
     document.getElementById("logoutBtn").addEventListener("click", () => {
       Auth.logOut();
       window.location.href = "index.html";
     });
+
+    // Counts up a number from 0 to its target over a short duration —
+    // the small "reward" motion that gives the recap card some life.
+    function countUpTo(el, target, duration = 700) {
+      if (Motion.prefersReducedMotion || target === 0) {
+        el.textContent = target;
+        return;
+      }
+      const start = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        el.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function renderWrappedStats() {
+      const myList = Auth.getMyList()
+        .map((id) => CATALOG.find((m) => m.id === id))
+        .filter(Boolean);
+
+      const genreCounts = {};
+      myList.forEach((m) => {
+        genreCounts[m.tag] = (genreCounts[m.tag] || 0) + 1;
+      });
+      const genres = Object.keys(genreCounts);
+      const topGenre = genres.sort((a, b) => genreCounts[b] - genreCounts[a])[0];
+
+      countUpTo(document.getElementById("statListCount"), myList.length);
+      countUpTo(document.getElementById("statGenreCount"), genres.length);
+
+      const pill = document.getElementById("topGenrePill");
+      if (topGenre) {
+        const emojiByGenre = {
+          Thriller: "🔪", Comedy: "😂", Anime: "⚔️", Drama: "🎭",
+          Fantasy: "🐉", Action: "💥", "Sci-Fi": "🛰️",
+        };
+        pill.textContent = `${emojiByGenre[topGenre] || "🎬"} ${topGenre}`;
+      }
+    }
   </script>
 </body>
 </html>

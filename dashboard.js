@@ -21,6 +21,9 @@ function initDashboard() {
   setupMobileDrawer();
   setupModal();
   setupBannerButtons();
+  setupNavScrollSpy();
+  Motion.initScrollReveal();
+  Motion.initCardTilt(".dash-card");
 }
 
 // ---- Rendering ----
@@ -89,7 +92,7 @@ function attachCardListeners(container) {
         return;
       }
       e.stopPropagation();
-      handleCardAction(actionBtn.dataset.action, id, card);
+      handleCardAction(actionBtn.dataset.action, id, e);
     });
 
     card.addEventListener("keydown", (e) => {
@@ -101,7 +104,7 @@ function attachCardListeners(container) {
   });
 }
 
-function handleCardAction(action, id, card) {
+function handleCardAction(action, id, e) {
   const item = CATALOG.find((m) => m.id === id);
   if (!item) return;
 
@@ -116,6 +119,10 @@ function handleCardAction(action, id, card) {
   if (action === "list") {
     const nowInList = Auth.toggleMyList(id);
     syncListButtons(id, nowInList);
+    if (nowInList) {
+      const rect = e.target.closest("button").getBoundingClientRect();
+      Motion.burst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    }
     // Re-render so the My List row picks up the change immediately.
     renderAllRows();
   }
@@ -200,6 +207,10 @@ function openModal(id) {
     listBtn.textContent = nowInList ? "✓ In My List" : "+ My List";
     listBtn.classList.toggle("in-list", nowInList);
     syncListButtons(id, nowInList);
+    if (nowInList) {
+      const rect = listBtn.getBoundingClientRect();
+      Motion.burst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    }
     renderAllRows();
   };
 
@@ -245,6 +256,40 @@ function setupScrollNav() {
   window.addEventListener("scroll", () => {
     const navbar = document.getElementById("navbar");
     navbar.classList.toggle("scrolled", window.scrollY > 50);
+  });
+}
+
+// ---- Nav active-state scroll spy ----
+
+function setupNavScrollSpy() {
+  const navLinks = document.querySelectorAll(".nav-link");
+  if (!navLinks.length) return;
+
+  const linksBySlug = {};
+  navLinks.forEach((link) => {
+    const slug = link.getAttribute("href")?.replace("#row-", "");
+    if (slug) linksBySlug[slug] = link;
+  });
+
+  const sections = document.querySelectorAll("#dashContent .dash-section");
+  if (!sections.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const slug = entry.target.id.replace("row-", "");
+        const matchingLink = linksBySlug[slug];
+        if (!matchingLink) return;
+        navLinks.forEach((l) => l.classList.remove("active"));
+        matchingLink.classList.add("active");
+      });
+    },
+    { rootMargin: "-45% 0px -45% 0px" } // fire when a section crosses the middle of the viewport
+  );
+
+  sections.forEach((section) => {
+    if (linksBySlug[section.id.replace("row-", "")]) observer.observe(section);
   });
 }
 
