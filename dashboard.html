@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Home — Streamify</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <nav class="dashboard-nav" id="navbar">
+    <a href="index.html" class="logo">STREAM<span>IFY</span></a>
+    <div class="nav-links">
+      <a href="#row-your-next-watch" class="nav-link active">Home</a>
+      <a href="#row-acclaimed-dramas" class="nav-link">TV Series</a>
+      <a href="#row-trending-now" class="nav-link">Movies</a>
+      <a href="#row-my-list" class="nav-link">My List</a>
+    </div>
+    <div class="nav-search-wrap">
+      <span class="search-icon">🔎</span>
+      <input type="text" id="searchInput" class="nav-search" placeholder="Search titles..."/>
+    </div>
+    <div class="account-dropdown">
+      <button class="btn-account">Account</button>
+      <div class="dropdown-panel">
+        <div class="dp-user-info">
+          <p class="dp-name" id="userName">—</p>
+          <p class="dp-email" id="userEmail">—</p>
+        </div>
+        <a href="profile.html" class="dp-link">View profile</a>
+        <a href="#" class="dp-link logout" id="logoutBtn">Log out</a>
+      </div>
+    </div>
+    <button class="nav-hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+  </nav>
+
+  <div class="nav-drawer-backdrop" id="drawerBackdrop"></div>
+  <div class="nav-drawer" id="navDrawer">
+    <a href="#row-your-next-watch" class="nav-drawer-link active">Home</a>
+    <a href="#row-acclaimed-dramas" class="nav-drawer-link">TV Series</a>
+    <a href="#row-trending-now" class="nav-drawer-link">Movies</a>
+    <a href="#row-my-list" class="nav-drawer-link">My List</a>
+    <a href="profile.html" class="nav-drawer-link">View profile</a>
+    <a href="#" class="nav-drawer-link" id="drawerLogoutBtn">Log out</a>
+  </div>
+
+  <header class="dash-banner">
+    <img src="img/squid.jpg" class="dash-banner-bg" alt=""/>
+    <div class="dash-banner-overlay"></div>
+    <div class="dash-caption">
+      <div class="dash-caption-badge">🔥 Final season now streaming</div>
+      <h1>Squid Game</h1>
+      <p>With nothing to lose, Seong Gi-hun accepts a strange invitation to compete in thrilling yet deadly children's games for a chance to win 45.6 billion won.</p>
+      <div class="dash-btns">
+        <button class="btn-play" id="bannerPlayBtn">▶ Play</button>
+        <button class="btn-more" id="bannerInfoBtn" data-id="squid">ⓘ More info</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="dash-content" id="dashContent">
+    <!-- Rows are rendered by dashboard.js from catalog.js -->
+  </main>
+
+  <div class="dash-footer">
+    <h2>Streamify</h2>
+    <p>Stay connected with us and share with your friends and family</p>
+  </div>
+  <div class="dash-copyright">
+    <p>© 2026 Streamify India</p>
+  </div>
+
+  <!-- Detail modal: filled in and toggled by dashboard.js -->
+  <div class="modal-overlay" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <div class="modal-banner">
+        <img id="modalImg" src="" alt=""/>
+        <div class="modal-banner-overlay"></div>
+        <button class="modal-close" id="modalCloseBtn" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <div class="modal-meta" id="modalMeta"></div>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-actions">
+          <button class="btn-play" id="modalPlayBtn">▶ Play</button>
+          <button class="btn-modal-list" id="modalListBtn">+ My List</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script src="catalog.js"></script>
+  <script src="dashboard.js"></script>
+
+</body>
+</html>

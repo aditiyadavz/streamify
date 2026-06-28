@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Profile — Streamify</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="auth-page">
+
+  <img src="img/bckgimg.jpg" class="auth-bg" alt=""/>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">STREAM<span>IFY</span></a>
+    <div class="nav-right">
+      <button class="btn-signin" onclick="window.location.href='dashboard.html'">Back to dashboard</button>
+    </div>
+  </nav>
+
+  <div class="auth-center">
+    <div class="auth-box">
+      <h2>Your profile</h2>
+
+      <div class="auth-field">
+        <label>Full name</label>
+        <input type="text" id="profileName" disabled/>
+      </div>
+      <div class="auth-field">
+        <label>Email address</label>
+        <input type="text" id="profileEmail" disabled/>
+      </div>
+      <div class="auth-field">
+        <label>Plan</label>
+        <input type="text" value="Premium — ₹149/month" disabled/>
+      </div>
+
+      <button class="btn-auth" id="logoutBtn">Log out</button>
+      <p class="auth-switch"><a href="dashboard.html">← Back to dashboard</a></p>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    const user = Auth.requireAuth();
+    if (user) {
+      document.getElementById("profileName").value = user.name;
+      document.getElementById("profileEmail").value = user.email;
+    }
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      Auth.logOut();
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>

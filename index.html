@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Streamify — Watch Everything</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="logo">STREAM<span>IFY</span></a>
+    <div class="nav-right">
+      <select class="lang-select" id="languageSelect">
+        <option value="en">🌐 English</option>
+        <option value="hi">🌐 हिन्दी</option>
+      </select>
+      <button class="btn-signin" onclick="window.location.href='login.html'">Sign In</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <img src="img/Bckimgg.jpg" class="hero-bg" alt=""/>
+    <div class="hero-content">
+      <div class="hero-badge">🔥 New releases every week</div>
+      <h1>Unlimited movies,<br>TV shows &amp; more</h1>
+      <p class="hero-price">Starts at <strong>₹149</strong>. Cancel any time.</p>
+      <p class="hero-cta-label">Ready to watch? Enter your email to get started.</p>
+      <div class="email-form">
+        <input type="email" placeholder="Enter your email address" class="email-input"/>
+        <button class="btn-getstarted" onclick="window.location.href='signUp.html'">Get Started ›</button>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">↓ scroll to explore</div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="section-divider"></div>
+
+  <!-- TRENDING -->
+  <section class="content-section">
+    <div class="section-head">
+      <h2 class="section-title">🔥 Trending Now</h2>
+      <span class="section-sub">What everyone's watching</span>
+    </div>
+    <div class="cards-row" id="trendingRow">
+      <div class="movie-card" onclick="window.location.href='login.html'">
+        <img src="img/squid.jpg" alt="Squid Game"/>
+        <div class="card-rank">1</div>
+        <div class="card-hover-info">
+          <p class="card-title">Squid Game</p>
+          <span class="card-tag">Thriller</span>
+        </div>
+      </div>
+      <div class="movie-card" onclick="window.location.href='login.html'">
+        <img src="img/friends.jpg" alt="Friends"/>
+        <div class="card-rank">2</div>
+        <div class="card-hover-info">
+          <p class="card-title">Friends</p>
+          <span class="card-tag">Comedy</span>
+        </div>
+      </div>
+      <div class="movie-card" onclick="window.location.href='login.html'">
+        <img src="img/demon.jpg" alt="Demon Slayer"/>
+        <div class="card-rank">3</div>
+        <div class="card-hover-info">
+          <p class="card-title">Demon Slayer</p>
+          <span class="card-tag">Anime</span>
+        </div>
+      </div>
+      <div class="movie-card" onclick="window.location.href='login.html'">
+        <img src="img/tvd.jpg" alt="The Vampire Diaries"/>
+        <div class="card-rank">4</div>
+        <div class="card-hover-info">
+          <p class="card-title">The Vampire Diaries</p>
+          <span class="card-tag">Drama</span>
+        </div>
+      </div>
+      <div class="movie-card" onclick="window.location.href='login.html'">
+        <img src="img/aot.jpg" alt="Attack On Titan"/>
+        <div class="card-rank">5</div>
+        <div class="card-hover-info">
+          <p class="card-title">Attack on Titan</p>
+          <span class="card-tag">Anime</span>
+        </div>
+      </div>
+      <div class="movie-card" onclick="window.location.href='login.html'">
+        <img src="img/harry.jpg" alt="Harry Potter"/>
+        <div class="card-rank">6</div>
+        <div class="card-hover-info">
+          <p class="card-title">Harry Potter</p>
+          <span class="card-tag">Fantasy</span>
+        </div>
+      </div>
+      <div class="movie-card" onclick="window.location.href='login.html'">
+        <img src="img/witcher.jpg" alt="The Witcher"/>
+        <div class="card-rank">7</div>
+        <div class="card-hover-info">
+          <p class="card-title">The Witcher</p>
+          <span class="card-tag">Fantasy</span>
+        </div>
+      </div>
+      <div class="movie-card" onclick="window.location.href='login.html'">
+        <img src="img/darkknight.jpg" alt="The Dark Knight"/>
+        <div class="card-rank">8</div>
+        <div class="card-hover-info">
+          <p class="card-title">The Dark Knight</p>
+          <span class="card-tag">Action</span>
+        </div>
+      </div>
+      <div class="movie-card" onclick="window.location.href='login.html'">
+        <img src="img/dark.jpg" alt="Dark"/>
+        <div class="card-rank">9</div>
+        <div class="card-hover-info">
+          <p class="card-title">Dark</p>
+          <span class="card-tag">Sci-Fi</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- WHY JOIN -->
+  <section class="content-section">
+    <div class="section-head">
+      <h2 class="section-title">✨ More reasons to join</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📺</div>
+        <h3>Watch on any TV</h3>
+        <p>Smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and more.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📥</div>
+        <h3>Download & watch offline</h3>
+        <p>Save your favourites and always have something to watch — even without internet.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>Watch everywhere</h3>
+        <p>Stream on your phone, tablet, laptop and TV. Switch screens anytime.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👶</div>
+        <h3>Profiles for kids</h3>
+        <p>A safe, fun space just for kids — free with your membership.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- FAQ -->
+  <section class="content-section faq-wrap">
+    <div class="section-head">
+      <h2 class="section-title">❓ Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">What is Streamify? <span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Streamify is a streaming service that lets you watch movies, TV shows, documentaries, and more — anytime, anywhere on any device.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Where can I watch? <span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Anywhere with internet — smartphone, tablet, smart TV, or laptop. Sign in and start streaming instantly.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What content is available? <span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Movies, TV series, anime, documentaries, and exclusive originals — with new content added every week.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is Streamify safe for kids? <span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Yes! You can create dedicated kids profiles with age-appropriate content — fully separate from your main account.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How do I cancel? <span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Cancel any time in your account settings — no questions asked, no cancellation fee.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- FOOTER CTA -->
+  <section class="footer-cta">
+    <p>Ready to watch? Enter your email to create or restart your membership.</p>
+    <div class="email-form">
+      <input type="email" placeholder="Enter your email address" class="email-input"/>
+      <button class="btn-getstarted" onclick="window.location.href='signUp.html'">Get Started ›</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p class="footer-phone">Questions? Call <a href="tel:000-987-654-3210">000-987-654-3210</a></p>
+    <div class="footer-links">
+      <ul>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Investor Relations</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Speed Test</a></li>
+      </ul>
+      <ul>
+        <li><a href="#">Help Centre</a></li>
+        <li><a href="#">Jobs</a></li>
+        <li><a href="#">Cookie Preferences</a></li>
+        <li><a href="#">Legal Notices</a></li>
+      </ul>
+      <ul>
+        <li><a href="#">Account</a></li>
+        <li><a href="#">Ways to Watch</a></li>
+        <li><a href="#">Corporate Info</a></li>
+        <li><a href="#">Only on Streamify</a></li>
+      </ul>
+      <ul>
+        <li><a href="#">Media Centre</a></li>
+        <li><a href="#">Terms of Use</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <p class="footer-copy">© 2025 Streamify India</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

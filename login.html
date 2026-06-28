@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Log In — Streamify</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="auth-page">
+
+  <img src="img/bckimg.jpg" class="auth-bg" alt=""/>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">STREAM<span>IFY</span></a>
+    <div class="nav-right">
+      <button class="btn-signin" onclick="window.location.href='index.html'">Back to home</button>
+    </div>
+  </nav>
+
+  <div class="auth-center">
+    <form id="loginForm" class="auth-box" novalidate>
+      <a href="index.html" class="auth-logo">STREAM<span>IFY</span></a>
+      <h2>Log in</h2>
+
+      <div class="auth-error" id="authError"></div>
+
+      <div class="auth-field">
+        <label for="loginEmail">Email address</label>
+        <input type="email" id="loginEmail" placeholder="you@example.com" required autocomplete="email"/>
+      </div>
+      <div class="auth-field">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="Your password" required autocomplete="current-password"/>
+      </div>
+
+      <button type="submit" class="btn-auth">Log in</button>
+      <p class="auth-switch">New to Streamify? <a href="signUp.html">Sign up now</a></p>
+    </form>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    const form = document.getElementById("loginForm");
+    const errorBox = document.getElementById("authError");
+
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.classList.add("show");
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      errorBox.classList.remove("show");
+
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+
+      const result = Auth.logIn({ email, password });
+      if (!result.ok) {
+        showError(result.error);
+        return;
+      }
+      window.location.href = "dashboard.html";
+    });
+  </script>
+</body>
+</html>
